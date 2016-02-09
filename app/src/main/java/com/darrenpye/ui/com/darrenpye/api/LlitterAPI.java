@@ -8,7 +8,7 @@ import java.util.ArrayList;
 /**
  * Created by darrenpye on 16-02-06.
  */
-public class GlitterAPI {
+public class LlitterAPI {
 
     // SAMPLE STUFF: Simulating network calls by adding in a delay before calling the callbacks
 
@@ -32,7 +32,7 @@ public class GlitterAPI {
     public void login(final Context context, final String usernameOrEmail, final String password, final LoginCallback callback) {
 
         // Get a handle to the DB
-        GlitterDBHandler dbHandler = new GlitterDBHandler(context);
+        LlitterDBHandler dbHandler = new LlitterDBHandler(context);
 
         // Find the user by their username or email and password
         final User user = dbHandler.findUser(usernameOrEmail, password);
@@ -64,7 +64,7 @@ public class GlitterAPI {
     public void getLitters(final Context context, final long userId, final GetGlittersCallback callback) {
 
         // Get a handle to the DB
-        GlitterDBHandler dbHandler = new GlitterDBHandler(context);
+        LlitterDBHandler dbHandler = new LlitterDBHandler(context);
 
         // Find the litters for this user
         final ArrayList<Litter> litters = dbHandler.getLittersForUser(userId);

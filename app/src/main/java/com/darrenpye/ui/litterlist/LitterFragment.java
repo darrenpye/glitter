@@ -14,8 +14,7 @@ import android.widget.ListAdapter;
 
 import com.darrenpye.R;
 import com.darrenpye.ui.GlitterActivity;
-import com.darrenpye.ui.com.darrenpye.api.GlitterAPI;
-import com.darrenpye.ui.com.darrenpye.api.GlitterDBHandler;
+import com.darrenpye.ui.com.darrenpye.api.LlitterAPI;
 import com.darrenpye.ui.com.darrenpye.api.Litter;
 import com.darrenpye.ui.com.darrenpye.api.User;
 
@@ -82,10 +81,10 @@ public class LitterFragment extends Fragment implements AbsListView.OnItemClickL
         final GlitterActivity glitterActivity = (GlitterActivity)getActivity();
         glitterActivity.showBusy(true);
 
-        GlitterAPI glitterAPI = new GlitterAPI();
+        LlitterAPI glitterAPI = new LlitterAPI();
 
 
-        glitterAPI.getLitters(glitterActivity, mCurrentUser.getUserId(), new GlitterAPI.GetGlittersCallback() {
+        glitterAPI.getLitters(glitterActivity, mCurrentUser.getUserId(), new LlitterAPI.GetGlittersCallback() {
             @Override
             public void callFailed(String message) {
                 // Woops

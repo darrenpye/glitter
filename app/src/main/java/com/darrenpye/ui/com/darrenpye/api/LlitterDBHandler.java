@@ -11,10 +11,10 @@ import java.util.ArrayList;
 /**
  * Created by darrenpye on 16-02-07.
  */
-public class GlitterDBHandler extends SQLiteOpenHelper {
+public class LlitterDBHandler extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "glitterDB.db";
+    private static final String DATABASE_NAME = "litterDB.db";
 
     // Tables
 
@@ -41,11 +41,11 @@ public class GlitterDBHandler extends SQLiteOpenHelper {
     private static final String LITTERS_LIKES = "likes";
 
 
-    public GlitterDBHandler(Context context) {
+    public LlitterDBHandler(Context context) {
         this(context, null, null, 1);
     }
 
-    public GlitterDBHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+    public LlitterDBHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, DATABASE_NAME, factory, DATABASE_VERSION);
     }
 
@@ -95,18 +95,22 @@ public class GlitterDBHandler extends SQLiteOpenHelper {
         long userId = db.insert(TABLE_USERS, null, values);
 
         // SAMPLE SHORTCUT: Add in some Litter as well
+
+        long nextid;
+
         values = new ContentValues();
         values.put(LITTERS_USER_ID, userId);
-        values.put(LITTERS_MESSAGE, "I was weak, but now I'm strong! Really! I am! Well.. kinda. Well... Not really. I suck.");
+        values.put(LITTERS_MESSAGE, "I may have emotional problems, but i have GREAT hair!");
         values.put(LITTERS_TIMESTAMP, (new java.util.Date()).getTime());
         values.put(LITTERS_IMAGE_ID, 1);
         values.put(LITTERS_RELITTERS, 0);
         values.put(LITTERS_LIKES, 0);
-        long nextid = db.insert(TABLE_LITTERS, null, values);
+        nextid = db.insert(TABLE_LITTERS, null, values);
+
 
         values = new ContentValues();
         values.put(LITTERS_USER_ID, userId);
-        values.put(LITTERS_MESSAGE, "Dad was kind of a douche. He never really loved me. I want cheese sticks.");
+        values.put(LITTERS_MESSAGE, "I was weak, but now I'm strong! Really! I am! Well.. kinda. Well... Not really... I suck.");
         values.put(LITTERS_TIMESTAMP, (new java.util.Date()).getTime());
         values.put(LITTERS_IMAGE_ID, 1);
         values.put(LITTERS_RELITTERS, 0);
@@ -115,7 +119,7 @@ public class GlitterDBHandler extends SQLiteOpenHelper {
 
         values = new ContentValues();
         values.put(LITTERS_USER_ID, userId);
-        values.put(LITTERS_MESSAGE, "I may have emotional problems, but i have GREAT hair!");
+        values.put(LITTERS_MESSAGE, "Dad was kind of a douche. He never really loved me. I want cheese sticks.");
         values.put(LITTERS_TIMESTAMP, (new java.util.Date()).getTime());
         values.put(LITTERS_IMAGE_ID, 1);
         values.put(LITTERS_RELITTERS, 0);
@@ -203,8 +207,8 @@ public class GlitterDBHandler extends SQLiteOpenHelper {
         ArrayList<Litter> results = null;
 
         String query = "SELECT * FROM " + TABLE_LITTERS +
-                //" WHERE " + LITTERS_USER_ID + " = "+ userId +
-                " ORDER BY "+ LITTERS_TIMESTAMP + " DESC";
+                " WHERE " + LITTERS_USER_ID + " = "+ userId +
+                " ORDER BY "+ LITTERS_ID + " ASC";
 
         SQLiteDatabase db = this.getWritableDatabase();
 

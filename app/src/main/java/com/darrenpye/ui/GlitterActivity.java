@@ -15,7 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.darrenpye.R;
-import com.darrenpye.ui.com.darrenpye.api.GlitterAPI;
+import com.darrenpye.ui.com.darrenpye.api.LlitterAPI;
 import com.darrenpye.ui.com.darrenpye.api.User;
 import com.darrenpye.ui.litterlist.LitterFragment;
 
@@ -32,7 +32,7 @@ public class GlitterActivity extends Activity implements
     private TextView mGlitterWelcome;
     private LoginFragment mLoginFragment;
     private LitterFragment mLitterFragment;
-    private GlitterAPI mGlitterAPI;
+    private LlitterAPI mGlitterAPI;
 
     private User mCurrentUser;
 
@@ -42,7 +42,7 @@ public class GlitterActivity extends Activity implements
         setContentView(R.layout.activity_glitter);
 
         // Get an instance to the API
-        mGlitterAPI = new GlitterAPI();
+        mGlitterAPI = new LlitterAPI();
 
         // The components
         mGlitterLogo = (ImageView) findViewById(R.id.glitterLogo);
@@ -69,7 +69,7 @@ public class GlitterActivity extends Activity implements
 
         mLoginFragment.enable(false);
 
-        mGlitterAPI.login(this, usernameOrEmail, password, new GlitterAPI.LoginCallback() {
+        mGlitterAPI.login(this, usernameOrEmail, password, new LlitterAPI.LoginCallback() {
             @Override
             public void loginSuccessful(User user) {
                 // Success!
