@@ -1,11 +1,11 @@
-# glitter
-Twitter like app exercise called "Glitter" - (littering the internet? don't ask!)
+# litter
+Twitter like app exercise called "Litter" - (littering the internet? don't ask!)
 
 The purpose of this excercise (so I've been told) is to create a "Twitter" like client to demonstrate how one should handle
 asynchronus comms, error handling, using the SQLite db, handling UI elements with fragments, animations,
 listeners, how unit tests can be developed for such a thing, etc...
 
-Notes:
+# Notes:
 - Only one user has been added to the database (see the LitterDBHandler.java file for details or to change). The app will default fill in these values upon launch
 uername: kyloren@emo-sith.com
 password: password
