@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:background="#80000000"
+            android:background="#90000000"
             android:padding="15pt">
 
             <LinearLayout
@@ -37,8 +37,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="@string/login_label"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="@string/sign_in_title"
                     android:id="@+id/textView" />
 
                 <EditText
@@ -46,7 +46,9 @@
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
                     android:ems="10"
-                    android:id="@+id/username" />
+                    android:id="@+id/username"
+                    android:hint="Username or email"
+                    android:textColor="#ffffff" />
             </LinearLayout>
 
             <Space
@@ -59,19 +61,14 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="@string/password_label"
-                    android:id="@+id/textView2" />
-
                 <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
                     android:ems="10"
-                    android:id="@+id/password" />
+                    android:id="@+id/password"
+                    android:hint="Password"
+                    android:textColor="#ffffff" />
 
             </LinearLayout>
 
@@ -98,7 +95,8 @@
                     android:id="@+id/sign_in_button"
                     android:layout_gravity="center_horizontal"
                     android:clickable="true"
-                    android:enabled="true" />
+                    android:enabled="true"
+                    android:background="#B02193ff" />
 
                 <Space
                     android:layout_width="20px"
@@ -111,7 +109,8 @@
                     android:id="@+id/new_user"
                     android:layout_gravity="center_horizontal"
                     android:clickable="true"
-                    android:enabled="true" />
+                    android:enabled="true"
+                    android:background="#B02193ff" />
             </LinearLayout>
 
         </LinearLayout>

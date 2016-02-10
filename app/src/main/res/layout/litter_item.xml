@@ -5,7 +5,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:padding="10dp"
-    android:background="#60000000">
+    android:background="#90000000">
 
     <Space
         android:layout_width="1pt"
@@ -29,6 +29,22 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|top" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="1 minute ago"
+                android:id="@+id/textView5"
+                android:layout_gravity="center_vertical|bottom"
+                android:layout_marginLeft="2pt" />
+        </LinearLayout>
 
         <TextView android:id="@+id/txtMessage"
             android:layout_width="match_parent"

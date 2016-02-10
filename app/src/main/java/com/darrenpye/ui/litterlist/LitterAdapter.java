@@ -10,12 +10,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.darrenpye.R;
-import com.darrenpye.ui.com.darrenpye.api.Litter;
+import com.darrenpye.litter.api.Litter;
 
 import java.util.List;
 
 /**
  * Created by darrenpye on 16-02-07.
+ *
+ * An Array adapter for handling the litter list UI display
+ *
  */
 public class LitterAdapter extends ArrayAdapter<Litter> {
     Context mContext;
@@ -35,6 +38,7 @@ public class LitterAdapter extends ArrayAdapter<Litter> {
 
         if(row == null)
         {
+            // Inflate the view, grab references to the updatable components, in a holder, and store in the view tag
             LayoutInflater inflater = ((Activity) mContext).getLayoutInflater();
             row = inflater.inflate(resourceId, parent, false);
 
@@ -49,14 +53,19 @@ public class LitterAdapter extends ArrayAdapter<Litter> {
             holder = (LitterHolder)row.getTag();
         }
 
+        // Get the litter object for the row
         Litter litter = getItem(position);
 
+        // Set the values
         holder.txtMessage.setText(litter.getMessage());
         holder.imgIcon.setImageResource(litter.getUserImageResource());
+
+        // TODO: Set values for likes, time and relitters
 
         return row;
     }
 
+    // A simple holder for the components for the row - optimization vs looking them up each time
     static class LitterHolder
     {
         ImageView imgIcon;
