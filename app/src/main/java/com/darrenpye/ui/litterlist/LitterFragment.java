@@ -209,6 +209,8 @@ public class LitterFragment extends Fragment implements AbsListView.OnItemClickL
         View litterView =  mView.findViewById(R.id.litterLayout);
         litterView.setVisibility(View.GONE);
 
+        // Clear it out
+        mLitterMessage.setText("");
     }
 
 
