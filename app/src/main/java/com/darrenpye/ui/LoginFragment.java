@@ -80,7 +80,9 @@ public class LoginFragment extends Fragment {
         mSigninButton.setOnClickListener(
                 new Button.OnClickListener() {
                     public void onClick(View v) {
-                        mListener.loginPressed(mUsername.getText().toString(), mPassword.getText().toString(), mRememberMeCB.isChecked());
+                        if (mUsername.getText() != null && mPassword.getText() != null) {
+                            mListener.loginPressed(mUsername.getText().toString(), mPassword.getText().toString(), mRememberMeCB.isChecked());
+                        }
                     }
                 }
         );
@@ -117,7 +119,7 @@ public class LoginFragment extends Fragment {
 
 
     @Override
-    public void onAttach(Context activity) {
+    public void onAttach(Activity activity) {
         super.onAttach(activity);
 
         // Someone there? Who's listening?
