@@ -16,7 +16,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.darrenpye.R;
+import com.darrenpye.litter.api.Litter;
 import com.darrenpye.litter.api.LitterAPI;
+import com.darrenpye.litter.api.LitterDBHandler;
 import com.darrenpye.litter.api.User;
 import com.darrenpye.ui.BadCredentialsFragment;
 import com.darrenpye.ui.LoginFragment;
@@ -59,6 +61,10 @@ public class LitterActivity extends Activity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_litter);
+
+        // Create an instance of the Database
+        LitterDBHandler.makeInstance(this);
+
 
         // Get an instance to the API
         mGlitterAPI = new LitterAPI();
@@ -150,7 +156,7 @@ public class LitterActivity extends Activity implements
         // litter service
         mLoginFragment.enable(false);
 
-        mGlitterAPI.login(this, usernameOrEmail, password, new LitterAPI.LoginCallback() {
+        mGlitterAPI.login(usernameOrEmail, password, new LitterAPI.LoginCallback() {
             @Override
             public void loginSuccessful(User user) {
                 // Success!
@@ -340,7 +346,7 @@ public class LitterActivity extends Activity implements
 
         showBusy(true);
 
-        mGlitterAPI.postLitter(this, mCurrentUser.getUserId(), message, new LitterAPI.PostLitterCallback() {
+        mGlitterAPI.postLitter(mCurrentUser.getUserId(), message, new LitterAPI.PostLitterCallback() {
             @Override
             public void callFailed(String message) {
                 showBusy(false);

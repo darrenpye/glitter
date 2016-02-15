@@ -66,14 +66,13 @@ public class LitterAPI {
 
     /** Performs a login to the Litter service by either email or username and password
      *
-     * @param context The context
      * @param usernameOrEmail The users username or email address
      * @param password The password
      * @param callback The callback for handling success or failures
      */
-    public void login(final Context context, final String usernameOrEmail, final String password, final LoginCallback callback) {
+    public void login(final String usernameOrEmail, final String password, final LoginCallback callback) {
 
-        new DoLogin(context, usernameOrEmail, password, callback).execute();
+        new DoLogin(usernameOrEmail, password, callback).execute();
     }
 
     private class UsernamePasswordHolder {
@@ -82,7 +81,6 @@ public class LitterAPI {
     }
 
     private class DoLogin extends AsyncTask<Void, Void, Boolean> {
-        private Context mContext;
         private String mUsernameOrEmail;
         private String mPassword;
         private LoginCallback mCallback;
@@ -90,8 +88,7 @@ public class LitterAPI {
         private User mUser;
         private String mCommsErrorMessage;
 
-        public DoLogin(final Context context, final String usernameOrEmail, final String password, final LoginCallback callback) {
-            mContext = context;
+        public DoLogin(final String usernameOrEmail, final String password, final LoginCallback callback) {
             mUsernameOrEmail = usernameOrEmail;
             mPassword = password;
             mCallback = callback;
@@ -100,7 +97,7 @@ public class LitterAPI {
         @Override
         protected Boolean doInBackground(Void... params) {
             // Get a handle to the DB
-            LitterDBHandler dbHandler = new LitterDBHandler(mContext);
+            LitterDBHandler dbHandler = LitterDBHandler.getInstance();
 
             // Find the user by their username or email and password
             mUser = dbHandler.findUser(mUsernameOrEmail, mPassword);
@@ -120,7 +117,7 @@ public class LitterAPI {
         protected void onPostExecute(Boolean result) {
 
             if (result) {
-                
+
                 mCallback.loginSuccessful(mUser);
 
             } else {
@@ -138,14 +135,13 @@ public class LitterAPI {
 
     /** Retrieves a list of the litters posted by the user
      *
-     * @param context The context
      * @param userId The user to find litters for
      * @param callback The callback that will handle the result or failures
      */
-    public void getLitters(final Context context, final long userId, final GetLittersCallback callback) {
+    public void getLitters(final long userId, final GetLittersCallback callback) {
 
         // Get a handle to the DB
-        LitterDBHandler dbHandler = new LitterDBHandler(context);
+        LitterDBHandler dbHandler = LitterDBHandler.getInstance();
 
         // Find the litters for this user
         final ArrayList<Litter> litters = dbHandler.getLittersForUser(userId);
@@ -176,15 +172,14 @@ public class LitterAPI {
 
     /** Post a litter message to the service
      *
-     * @param context The context
      * @param userId The userid posting the message
      * @param message The message to post
      * @param callback The callback for handling results
      */
-    public void postLitter(final Context context, final long userId, final String message, final PostLitterCallback callback) {
+    public void postLitter(final long userId, final String message, final PostLitterCallback callback) {
 
         // Get a handle to the DB
-        LitterDBHandler dbHandler = new LitterDBHandler(context);
+        LitterDBHandler dbHandler = LitterDBHandler.getInstance();
 
         // Createa  new Litter object
         Litter litter = new Litter(userId, message);

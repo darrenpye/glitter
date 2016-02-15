@@ -47,6 +47,32 @@ public class LitterDBHandler extends SQLiteOpenHelper {
     private static final String LITTERS_LIKES = "likes";
 
 
+    private static LitterDBHandler mInstance;
+
+    /** Singleton method for getting an instance of the database
+     */
+    public static LitterDBHandler getInstance() {
+        if (mInstance == null) {
+            throw new RuntimeException("You must call makeInstance prior to calling this method.");
+        }
+
+        return mInstance;
+    }
+
+    /** Called once to make an instance of the singleton for future usage
+     * should
+     *
+     * @param context The app context
+     */
+    public static void makeInstance(Context context) {
+        if (mInstance != null) {
+            throw new RuntimeException("Instance already made! This method should only be called once");
+        }
+
+        mInstance = new LitterDBHandler(context);
+
+    }
+
     public LitterDBHandler(Context context) {
         this(context, null, null, 1);
     }

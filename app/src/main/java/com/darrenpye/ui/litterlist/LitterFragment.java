@@ -150,7 +150,7 @@ public class LitterFragment extends Fragment implements AbsListView.OnItemClickL
         LitterAPI glitterAPI = new LitterAPI();
 
         // Call the getLitters method with a callback
-        glitterAPI.getLitters(glitterActivity, mCurrentUser.getUserId(), new LitterAPI.GetLittersCallback() {
+        glitterAPI.getLitters(mCurrentUser.getUserId(), new LitterAPI.GetLittersCallback() {
             @Override
             public void gotLitters(ArrayList<Litter> litters) {
                 mAdapter = new LitterAdapter(getActivity(), R.layout.litter_item, litters);
