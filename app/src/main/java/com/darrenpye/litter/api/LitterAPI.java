@@ -1,6 +1,7 @@
 package com.darrenpye.litter.api;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Handler;
 
 import java.util.ArrayList;
@@ -72,32 +73,65 @@ public class LitterAPI {
      */
     public void login(final Context context, final String usernameOrEmail, final String password, final LoginCallback callback) {
 
-        // Get a handle to the DB
-        LitterDBHandler dbHandler = new LitterDBHandler(context);
+        new DoLogin(context, usernameOrEmail, password, callback).execute();
+    }
 
-        // Find the user by their username or email and password
-        final User user = dbHandler.findUser(usernameOrEmail, password);
+    private class UsernamePasswordHolder {
+        String username;
+        String password;
+    }
 
+    private class DoLogin extends AsyncTask<Void, Void, Boolean> {
+        private Context mContext;
+        private String mUsernameOrEmail;
+        private String mPassword;
+        private LoginCallback mCallback;
 
-        // SAMPLE STUFF: Simulate a network call by adding in a delay before calling the callback
+        private User mUser;
+        private String mCommsErrorMessage;
 
-        {
-            final Handler h = new Handler();
+        public DoLogin(final Context context, final String usernameOrEmail, final String password, final LoginCallback callback) {
+            mContext = context;
+            mUsernameOrEmail = usernameOrEmail;
+            mPassword = password;
+            mCallback = callback;
+        }
 
-            Runnable r1 = new Runnable() {
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            // Get a handle to the DB
+            LitterDBHandler dbHandler = new LitterDBHandler(mContext);
 
-                @Override
-                public void run() {
+            // Find the user by their username or email and password
+            mUser = dbHandler.findUser(mUsernameOrEmail, mPassword);
 
-                    if (user != null) {
-                        callback.loginSuccessful(user);
-                    } else {
-                        callback.badCredentials();
-                    }
+            // SAMPLE STUFF: Simulate a network call by adding in a delay before calling the callback
+            boolean commsWasOk = true;
+            try {
+                Thread.sleep(API_CALL_SIMULATION_DELAY);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            return mUser != null && mCommsErrorMessage == null;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+
+            if (result) {
+                
+                mCallback.loginSuccessful(mUser);
+
+            } else {
+                // If the communications was ok, but the result still bad, then
+                // the credentials must be incorrect
+                if (mCommsErrorMessage == null) {
+                    mCallback.badCredentials();
+                } else {
+                    mCallback.callFailed(mCommsErrorMessage);
                 }
-            };
-
-            h.postDelayed(r1, API_CALL_SIMULATION_DELAY); // 1.5 second delay
+            }
         }
     }
 
